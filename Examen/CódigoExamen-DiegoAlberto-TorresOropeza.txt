@@ -1,0 +1,44 @@
+import os#Importo la librería del sistema operativo
+os.system("cls")#Para limpiar pantalla con cada ejecución
+
+print("\n\t\t\t\tBienvenido al registro Covid-19\n")#Bienvenida al usuario
+print("\tREGISTROS EN LA BASE DE DATOS\n")
+a=open("baseDatos.csv","r")#Abro mi base de datos .csv
+contenido=a.readlines()
+print(contenido)#Muestro los datos de la base de datos
+
+e=0#Variable para edades
+k=0#Variable para número de contagios
+i=0#Contador para el for
+print("\n")
+print("Detector de Covid-19:\n")
+for i in range (0,len(contenido)):#El ciclo es desde la posición 0 hasta la longitud de la base de datos (100)
+	indicador=contenido[i].split(',') #Separo la edad del indicador, ya que el indicador me ayudará a saber si se tiene o no Covid
+	
+	if float(indicador[1])>=0.8: #Condición para saber las personas con Covid
+		print("Esta persona tiene Covid-19") #Tiene Covid :(
+		print("Edad: "+str(indicador[0])+"    Indicador: "+str(indicador[1])) #Se muestra la edad y el indicador de la persona con Covid
+		e=e+int(indicador[0]) #Se van sumando las edades de los contagiados
+		k=k+1 #Se van sumando el número de contagiados
+		
+	elif float(indicador[1])<0.8: #Condicipon para saber los no comtagiados
+		print("Esta persona no tiene Covid-19") #No tiene Covid :)
+		print("Edad: "+str(indicador[0])+"    Indicador: "+str(indicador[1]))#Se muestra la edad y el indicador de la persona sana
+		
+	i=i+1#Se va sumando el contador del ciclo
+
+promedio=e/k#El promedio de edad de comtagiados es igual a la sumatoria de las edades de los contagiados entre el número de contagios
+
+print("Total de personas con Covid-19: "+str(k)) #Se muestra el número de contagios
+#Según el número de contagios, se mostrará el semáforo:
+if k==0:
+	print("El semáforo epidemiológico es verde")
+elif k>=1 and k<=30:
+	print("El semáforo epidemiológico es amarillo")
+elif k>=31 and k<=70:
+	print("El semáforo epidemiológico es naranja")
+elif k>=71 and k<=100:
+	print("El semáforo epidemiológico es rojo")
+
+
+print("El promedio de edad de personas con  Covid-19 es: "+str(promedio))#Se muestra el promedio de edad de los contagiados
