@@ -1,0 +1,95 @@
+from tkinter import * #Importamos la librería "Tkinter", que me va a servir para la parte gráfica
+
+interfaz=Tk() #Creamos la interfaz de la calculadora
+interfaz.title("Calculadora") #Título de la ventana que se abrirá (interfaz)
+
+i=0
+
+#ENTRADA DE TEXTO
+en_text=Entry(interfaz, font=("Arial 15"))#Definimos el tipo de letra de entrada
+en_text.grid(row=0, column=0, columnspan= 4, padx=5, pady=5)#Se define la dimensión de la entrada de texto
+
+#FUNCIONES 
+def click_boton(valor): #Esta función nos va a permitir mostrar el valor del botón en la entrada de texto
+    global i
+    en_text.insert(i,valor)#Pone los valores elegidos en la entrada de texto
+    i=i+1#Este contador es para que se vayan poniendo los valores en orden
+
+def AC(): #Esta función es para reiniciar la entrada de texto
+    en_text.delete(0,END)#Borra toda la entrada de texto
+    i=0
+
+def operaciones():#Esta función es la que realiza las operaciones aritméticas
+    operacion= en_text.get()#La operación va a ser igual a lo que haya en la entrada de texto
+    resultado= eval(operacion)#El resultado va a ser igual a la evalución de la operación
+    en_text.delete(0,END)#Se borra lo que estaba en la entrada de texto
+    en_text.insert(0,resultado)#Se muestra el resultado
+    i=0
+
+                                #DOY VALOR A LOS BOTONES
+#Establezco el alto y ancho de los botones, así como qué van a representar
+
+#"Button" crea el botón
+#"width" y "height", sirven para definir la dimensión del botón
+#"command" es para poner lo que se va a ejecutar cuando se de click en ese botón
+#"lambda" sirve para poder poner la función en la línea de código
+#BOTONES DE LA CALCULADORA (NÚMEROS)
+tecla1=Button(interfaz, text="1", width=5, height=2, command=lambda:click_boton(1))
+tecla2=Button(interfaz, text="2", width=5, height=2, command=lambda:click_boton(2))
+tecla3=Button(interfaz, text="3", width=5, height=2, command=lambda:click_boton(3))
+tecla4=Button(interfaz, text="4", width=5, height=2, command=lambda:click_boton(4))
+tecla5=Button(interfaz, text="5", width=5, height=2, command=lambda:click_boton(5))
+tecla6=Button(interfaz, text="6", width=5, height=2, command=lambda:click_boton(6))
+tecla7=Button(interfaz, text="7", width=5, height=2, command=lambda:click_boton(7))
+tecla8=Button(interfaz, text="8", width=5, height=2, command=lambda:click_boton(8))
+tecla9=Button(interfaz, text="9", width=5, height=2, command=lambda:click_boton(9))
+tecla0=Button(interfaz, text="0", width=13, height=2, command=lambda:click_boton(0))
+
+#BOTONES DE LA CALCULADORA (ACCIONES)
+tecla_AC=Button(interfaz, text="AC", width=5, height=2, command=lambda:AC())
+tecla_parop=Button(interfaz, text="(", width=5, height=2, command=lambda:click_boton("("))
+tecla_parcl=Button(interfaz, text=")", width=5, height=2, command=lambda:click_boton(")"))
+tecla_punto=Button(interfaz, text=".", width=5, height=2, command=lambda:click_boton("."))
+
+#TECLAS DE LA CALCULADORA (OPERADORES)
+tecla_sum=Button(interfaz, text="+", width=5, height=2, command=lambda:click_boton("+"))
+tecla_rest=Button(interfaz, text="-", width=5, height=2, command=lambda:click_boton("-"))
+tecla_mult=Button(interfaz, text="x", width=5, height=2, command=lambda:click_boton("*"))
+tecla_div=Button(interfaz, text="/", width=5, height=2, command=lambda:click_boton("/"))
+tecla_igual=Button(interfaz, text="=", width=5, height=2, command=lambda:operaciones())
+
+                    #AGREGAMOS LAS TECLAS A LA INTERFAZ
+#"row" indica en qué renglón se va a poner el botón
+#"column" indica en qué columna se va a poner el botón
+#"padx" y "pady" son para asignar el margen externo a cada botón
+#Las anteriores funciones son posibles gracias a "grid", que es quién nos permite darle "coordenadas" a cada botón
+#Renglón 1
+tecla_AC.grid(row=1, column=0, padx=5, pady=5)
+tecla_parop.grid(row=1, column=1, padx=5, pady=5)
+tecla_parcl.grid(row=1, column=2, padx=5, pady=5)
+tecla_div.grid(row=1, column=3, padx=5, pady=5)
+
+#Renglón 2
+tecla7.grid(row=2, column=0, padx=5, pady=5)
+tecla8.grid(row=2, column=1, padx=5, pady=5)
+tecla9.grid(row=2, column=2, padx=5, pady=5)
+tecla_mult.grid(row=2, column=3, padx=5, pady=5)
+
+#Renglón 3
+tecla4.grid(row=3, column=0, padx=5, pady=5)
+tecla5.grid(row=3, column=1, padx=5, pady=5)
+tecla6.grid(row=3, column=2, padx=5, pady=5)
+tecla_sum.grid(row=3, column=3, padx=5, pady=5)
+
+#Renglón 4
+tecla1.grid(row=4, column=0, padx=5, pady=5)
+tecla2.grid(row=4, column=1, padx=5, pady=5)
+tecla3.grid(row=4, column=2, padx=5, pady=5)
+tecla_rest.grid(row=4, column=3, padx=5, pady=5)
+
+#Renglón 5
+tecla0.grid(row=5, column=0, columnspan=2, padx=5, pady=5)
+tecla_punto.grid(row=5, column=2, padx=5, pady=5)
+tecla_igual.grid(row=5, column=3, padx=5, pady=5)
+
+interfaz.mainloop() #Hace que la ventana se quede abierta hasta que decidamos cerrarla
